@@ -72,12 +72,21 @@ function displayStudents() {
                         <strong>Enrolled:</strong> ${student.enrollmentDate}
                     </div>
                 </div>
-                <button class="btn-delete" onclick="deleteStudent(${student.id})">Delete Student</button>
+                <button class="btn-delete" data-student-id="${student.id}">Delete Student</button>
             </div>
         `;
     });
 
     studentsList.innerHTML = html;
+    
+    // Add event listeners to delete buttons
+    const deleteButtons = studentsList.querySelectorAll('.btn-delete');
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const studentId = parseInt(this.getAttribute('data-student-id'));
+            deleteStudent(studentId);
+        });
+    });
 }
 
 // Delete a student
